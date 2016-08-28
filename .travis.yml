@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+     - "4.4"
+install:
+     - npm install
+before_script:
+     - npm install -g browserify
+     - npm install -g grunt
+     - npm install -g grunt-cli
+script:
+     - grunt build
+after_success: |
+  if [ -n "$GITHUB_API_KEY" ]; then
+    cd "$TRAVIS_BUILD_DIR"
+    cd dist
+    git init
+    git remote add origin https://github.com/Txuritan/txghio.git
+    git pull origin gh-pages .
+    git -c user.name='travis' -c user.email='travis' commit -m init
+    git push
+    cd "$TRAVIS_BUILD_DIR"
+  fi

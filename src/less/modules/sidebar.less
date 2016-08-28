@@ -1,0 +1,28 @@
+.sidebar {
+	background-color: rgba(255, 255, 255, 1.0);
+	border-right: 1px solid @silver;
+	position: fixed;
+	top: @navbar-top-height;
+	bottom: 0px;
+	left: 0;
+	width: 0px;
+	overflow: auto;
+	transition: width .5s ease;
+	z-index: 9999;
+	ul {
+		list-style-type: none;
+		overflow: auto;
+		padding: 0;
+		margin: 0;
+		li {
+			color: @asbestos;
+			padding: 5px;
+			transition: background-color 0.5s ease, color 0.5s ease;
+			&.active,
+			&:hover {
+				background-color: darken(rgba(255, 255, 255, 1.0), 10%);
+				color: #000000;
+			}
+		}
+	}
+}
