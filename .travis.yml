@@ -7,6 +7,7 @@ before_script:
      - npm install -g browserify
      - npm install -g grunt
      - npm install -g grunt-cli
+     - git clone https://Txuritan:$GITHUB_API_KEY@github.com/Txuritan/txghio.git --branch=gh-pages dist
 script:
      - grunt build
 after_success: |
@@ -14,9 +15,10 @@ after_success: |
     cd "$TRAVIS_BUILD_DIR"
     cd dist
     git init
-    git remote add origin https://github.com/Txuritan/txghio.git
+    git remote add origin git@github.com:Txuritan/txghio.git
     git pull origin gh-pages .
+    git add --all
     git -c user.name='travis' -c user.email='travis' commit -m init
-    git push
+    git push -q https://Txuritan:$GITHUB_API_KEY@github.com/Txuritan/txghio.git
     cd "$TRAVIS_BUILD_DIR"
   fi
