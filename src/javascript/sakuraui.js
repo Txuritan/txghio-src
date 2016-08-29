@@ -2,17 +2,30 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 
+import Downlaods from './modules/react-downloads.js'
+
 import App from './modules/react-index.js'
 import Home from './modules/react-home.js'
 import Posts from './modules/react-posts.js'
 import Post from './modules/react-posts-post.js'
 
+import Stories from './modules/react-stories.js'
+import Story from './modules/react-stories-story.js'
+import Chapter from './modules/react-stories-story-chapter.js'
+
 render((
 	<Router history={hashHistory}>
 		<Route path="/" component={App}>
 			<IndexRoute component={Home} />
+
+			<Route path="downloads" component={Downlaods}/>
+
 			<Route path="posts" component={Posts}/>
 			<Route path="posts/post/:id" component={Post}/>
+
+			<Route path="stories" component={Stories}/>
+			<Route path="stories/:id" component={Story}/>
+			<Route path="stories/:id/:chapter" component={Chapter}/>
 		</Route>
 	</Router>
 ), document.getElementById('app'))

@@ -1,24 +1,36 @@
 language: node_js
+# "Why Not Update/Use Newest Version" Cause This Is The Version I Have On My PC
 node_js:
      - "4.4"
+# NodeJS 4.4 Requires A Updated Version Of G++ So...
+env:
+     - CXX=g++-4.8
+addons:
+     apt:
+          sources:
+               - ubuntu-toolchain-r-test
+          packages:
+               - g++-4.8
 install:
      - npm install
 before_script:
      - npm install -g browserify
      - npm install -g grunt
      - npm install -g grunt-cli
+     # This Allows Me To Clone Without Git Freaking Out Over A Non Empty Directory
      - git clone https://Txuritan:$GITHUB_API_KEY@github.com/Txuritan/txghio.git --branch=gh-pages dist
 script:
      - grunt build
+# This Commits And Pushs The Built File To The Tempoary Repository
 after_success: |
-  if [ -n "$GITHUB_API_KEY" ]; then
-    cd "$TRAVIS_BUILD_DIR"
-    cd dist
-    git init
-    git remote add origin git@github.com:Txuritan/txghio.git
-    git pull origin gh-pages .
-    git add --all
-    git -c user.name='travis' -c user.email='travis' commit -m init
-    git push -q https://Txuritan:$GITHUB_API_KEY@github.com/Txuritan/txghio.git
-    cd "$TRAVIS_BUILD_DIR"
-  fi
+     if [ -n "$GITHUB_API_KEY" ]; then
+          cd "$TRAVIS_BUILD_DIR"
+          cd dist
+          git init
+          git remote add origin git@github.com:Txuritan/txghio.git
+          git pull origin gh-pages .
+          git add --all
+          git -c user.name='travis' -c user.email='travis' commit -m init
+          git push -q https://Txuritan:$GITHUB_API_KEY@github.com/Txuritan/txghio.git
+          cd "$TRAVIS_BUILD_DIR"
+     fi

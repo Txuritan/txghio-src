@@ -31762,6 +31762,92 @@ exports.uriFragmentInHTMLData = exports.uriComponentInHTMLData;
 exports.uriFragmentInHTMLComment = exports.uriComponentInHTMLComment;
 
 },{}],261:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require("react-router");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _react2.default.createClass({
+	displayName: "navlink",
+
+	contextTypes: {
+		router: _react2.default.PropTypes.object
+	},
+	render: function render() {
+		var isActive = this.context.router.isActive(this.props.to, true),
+		    className = isActive ? "active" : "";
+		return _react2.default.createElement(
+			"li",
+			{ className: className },
+			_react2.default.createElement(
+				_reactRouter.Link,
+				this.props,
+				this.props.children
+			)
+		);
+	}
+});
+
+},{"react":256,"react-router":105}],262:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactRouter = require('react-router');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _react2.default.createClass({
+	displayName: 'react-downloads',
+	render: function render() {
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(
+				'table',
+				null,
+				_react2.default.createElement(
+					'thead',
+					null,
+					_react2.default.createElement(
+						'tr',
+						null,
+						_react2.default.createElement(
+							'th',
+							null,
+							'Post Name'
+						),
+						_react2.default.createElement(
+							'th',
+							null,
+							'Post Date/Updated'
+						)
+					)
+				),
+				_react2.default.createElement('tbody', null)
+			)
+		);
+	}
+});
+
+},{"react":256,"react-dom":74,"react-router":105}],263:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -31789,7 +31875,7 @@ exports.default = _react2.default.createClass({
 	}
 });
 
-},{"react":256}],262:[function(require,module,exports){
+},{"react":256}],264:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -31801,6 +31887,10 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
+
+var _navlink = require('./elements/navlink');
+
+var _navlink2 = _interopRequireDefault(_navlink);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31836,20 +31926,7 @@ exports.default = _react2.default.createClass({
 							_react2.default.createElement(
 								'a',
 								null,
-								'SAKURA UI'
-							)
-						)
-					),
-					_react2.default.createElement(
-						'ul',
-						{ className: 'nav-top-right' },
-						_react2.default.createElement(
-							'li',
-							{ className: 'settings' },
-							_react2.default.createElement(
-								'a',
-								null,
-								'settings'
+								'Txuritan'
 							)
 						)
 					)
@@ -31875,9 +31952,24 @@ exports.default = _react2.default.createClass({
 					'ul',
 					null,
 					_react2.default.createElement(
-						'li',
-						null,
+						_navlink2.default,
+						{ to: '/' },
 						'Home'
+					),
+					_react2.default.createElement(
+						_navlink2.default,
+						{ to: '/downloads/' },
+						'Downlaods'
+					),
+					_react2.default.createElement(
+						_navlink2.default,
+						{ to: '/posts/' },
+						'Posts'
+					),
+					_react2.default.createElement(
+						_navlink2.default,
+						{ to: '/stories/' },
+						'Stories'
 					)
 				)
 			),
@@ -31915,7 +32007,7 @@ exports.default = _react2.default.createClass({
 	}
 });
 
-},{"react":256,"react-router":105}],263:[function(require,module,exports){
+},{"./elements/navlink":261,"react":256,"react-router":105}],265:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -31950,7 +32042,7 @@ exports.default = _react2.default.createClass({
 	}
 });
 
-},{"../../posts.json":266,"react":256,"react-dom":74,"react-markdown":75}],264:[function(require,module,exports){
+},{"../../posts.json":271,"react":256,"react-dom":74,"react-markdown":75}],266:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -32030,7 +32122,183 @@ exports.default = _react2.default.createClass({
 	}
 });
 
-},{"../../posts.json":266,"react":256,"react-dom":74,"react-router":105}],265:[function(require,module,exports){
+},{"../../posts.json":271,"react":256,"react-dom":74,"react-router":105}],267:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactRouter = require('react-router');
+
+var _reactMarkdown = require('react-markdown');
+
+var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var storyJSON = require('../../stories.json');
+
+exports.default = _react2.default.createClass({
+	displayName: 'react-stories-story-chapter',
+	render: function render() {
+		var id = this.props.params.id;
+		var chapter = this.props.params.chapter;
+		var storyChapter = storyJSON[id][chapter];
+		var nextChapter = (parseInt(chapter, 10) + 1).toString();
+		var chNumLength = nextChapter.length;
+		var zeros = void 0;
+		switch (chNumLength.toString()) {
+			case "1":
+				zeros = "000";
+				break;
+			case "2":
+				zeros = "00";
+				break;
+			case "3":
+				zeros = "0";
+				break;
+			case "4":
+				zeros = "";
+				break;
+		}
+		var nextChapterString = zeros + nextChapter;
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(_reactMarkdown2.default, { source: storyChapter }),
+			_react2.default.createElement('br', null),
+			_react2.default.createElement(
+				_reactRouter.Link,
+				{ className: 'button', to: "/stories/" + id + "/" + nextChapterString },
+				'Next Chapter'
+			)
+		);
+	}
+});
+
+},{"../../stories.json":272,"react":256,"react-dom":74,"react-markdown":75,"react-router":105}],268:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactMarkdown = require('react-markdown');
+
+var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var storyJSON = require('../../stories.json');
+
+exports.default = _react2.default.createClass({
+	displayName: 'react-stories-story',
+	render: function render() {
+		var id = this.props.params.id;
+		var postTitle = storyJSON[id].name;
+		var postContent = storyJSON[id].data;
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(_reactMarkdown2.default, { source: postContent })
+		);
+	}
+});
+
+},{"../../stories.json":272,"react":256,"react-dom":74,"react-markdown":75}],269:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactRouter = require('react-router');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var storyJSON = require('../../stories.json');
+
+var TableStory = [];
+
+exports.default = _react2.default.createClass({
+	displayName: 'react-stories',
+	render: function render() {
+		for (var key in storyJSON) {
+			if (storyJSON.hasOwnProperty(key)) {
+				TableStory.push(_react2.default.createElement(
+					'tr',
+					{ key: storyJSON[key].id },
+					_react2.default.createElement(
+						'td',
+						null,
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ activeClassName: 'active', to: "/stories/" + storyJSON[key].undername },
+							storyJSON[key].name
+						)
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						storyJSON[key].data
+					)
+				));
+			}
+		}
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(
+				'table',
+				null,
+				_react2.default.createElement(
+					'thead',
+					null,
+					_react2.default.createElement(
+						'tr',
+						null,
+						_react2.default.createElement(
+							'th',
+							null,
+							'Post Name'
+						),
+						_react2.default.createElement(
+							'th',
+							null,
+							'Post Date/Updated'
+						)
+					)
+				),
+				_react2.default.createElement(
+					'tbody',
+					null,
+					TableStory
+				)
+			)
+		);
+	}
+});
+
+},{"../../stories.json":272,"react":256,"react-dom":74,"react-router":105}],270:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -32040,6 +32308,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactDom = require('react-dom');
 
 var _reactRouter = require('react-router');
+
+var _reactDownloads = require('./modules/react-downloads.js');
+
+var _reactDownloads2 = _interopRequireDefault(_reactDownloads);
 
 var _reactIndex = require('./modules/react-index.js');
 
@@ -32057,6 +32329,18 @@ var _reactPostsPost = require('./modules/react-posts-post.js');
 
 var _reactPostsPost2 = _interopRequireDefault(_reactPostsPost);
 
+var _reactStories = require('./modules/react-stories.js');
+
+var _reactStories2 = _interopRequireDefault(_reactStories);
+
+var _reactStoriesStory = require('./modules/react-stories-story.js');
+
+var _reactStoriesStory2 = _interopRequireDefault(_reactStoriesStory);
+
+var _reactStoriesStoryChapter = require('./modules/react-stories-story-chapter.js');
+
+var _reactStoriesStoryChapter2 = _interopRequireDefault(_reactStoriesStoryChapter);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactDom.render)(_react2.default.createElement(
@@ -32066,8 +32350,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 		_reactRouter.Route,
 		{ path: '/', component: _reactIndex2.default },
 		_react2.default.createElement(_reactRouter.IndexRoute, { component: _reactHome2.default }),
+		_react2.default.createElement(_reactRouter.Route, { path: 'downloads', component: _reactDownloads2.default }),
 		_react2.default.createElement(_reactRouter.Route, { path: 'posts', component: _reactPosts2.default }),
-		_react2.default.createElement(_reactRouter.Route, { path: 'posts/post/:id', component: _reactPostsPost2.default })
+		_react2.default.createElement(_reactRouter.Route, { path: 'posts/post/:id', component: _reactPostsPost2.default }),
+		_react2.default.createElement(_reactRouter.Route, { path: 'stories', component: _reactStories2.default }),
+		_react2.default.createElement(_reactRouter.Route, { path: 'stories/:id', component: _reactStoriesStory2.default }),
+		_react2.default.createElement(_reactRouter.Route, { path: 'stories/:id/:chapter', component: _reactStoriesStoryChapter2.default })
 	)
 ), document.getElementById('app'));
 
@@ -32113,7 +32401,7 @@ document.querySelector('#themeDark').addEventListener('change', function () {
 });
 */
 
-},{"./modules/react-home.js":261,"./modules/react-index.js":262,"./modules/react-posts-post.js":263,"./modules/react-posts.js":264,"react":256,"react-dom":74,"react-router":105}],266:[function(require,module,exports){
+},{"./modules/react-downloads.js":262,"./modules/react-home.js":263,"./modules/react-index.js":264,"./modules/react-posts-post.js":265,"./modules/react-posts.js":266,"./modules/react-stories-story-chapter.js":267,"./modules/react-stories-story.js":268,"./modules/react-stories.js":269,"react":256,"react-dom":74,"react-router":105}],271:[function(require,module,exports){
 module.exports={
 	"0001": {
 		"id": "0001",
@@ -32129,4 +32417,82 @@ module.exports={
 	}
 }
 
-},{}]},{},[265]);
+},{}],272:[function(require,module,exports){
+module.exports={
+	"a-dragons-deal": {
+		"id": "0001",
+		"name": "A Dragon's Deal",
+		"undername": "a-dragons-deal",
+		"date": "8/25/2016",
+		"data": "Hicca makes a deal and now she has to kill the Red Death or she will turn into a dragon. X-Jinxa-X's A Dragons Deal. Thx X-Jinxa-X for giving me this story. Female Hiccup.",
+		"0001": "## Chapter 1: HELP! ##\n\nThis is Berk, my home. It's twelve days north of hopeless and few degrees south of freezing to death. It's located solidly on the meridian of misery. My village. In a word, sturdy. It's been here for seven generations, but every single building is new. We have fishing, hunting and a charming view of the sunsets.\n\nThe only problems are the pests. You see, most places have mice or mosquitoes. We have…\n\n\"Dragons…\" I quickly shut the door as a Monstrous Nightmare blew fire in my direction. I had heard the commotion from outside and rushed to the door.\n\nThe dragons were attacking again, likely to take another shot at our livestock. Most people would leave, not us. We're Vikings. We have stubbornness issues. At any sign of danger, a Viking would grab the nearest blunt or sharp object and charged into battle.\n\nI opened the door again and ran out into all the commotion and chaos. Dragons were swarming, attacking! I had to weave my way through the field to get by all the other preoccupied Vikings.\n\n\"What are you doing here?\"\n\n\"Get back inside!\"\n\nEveryone was always telling me to get back inside and stay out of trouble. It wasn't like they were concerned for me. It was really more of my father who was concerned for me.\n\nI was about to run across one of the roads when a Nightmare swooped down and lit the path ablaze. I felt someone grab the collar of my jacket and pull me away from the fire.\n\n\"Hicca! What is she doing…?\" he spoke to the Vikings while pointing at me. Then he turned to me. \"What are you doing out? Get inside!\" He let me go and I continued to where I was going.\n\nThat's Stoick the Vast, chief of the tribe. They say when he was a baby, he popped a dragon's head clean off its shoulders. Do I believe it? Yes, I do. Why? Yes, Stoick was my father. For as long as I could remember he had been terribly protective of me. My intuition told me that it had to do with the fact that my mother died when I was a kid. Ever since we lost her…something changed in him and he started treating my like I was a frail baby.\n\nHe was close to locking me away in my room for my entire life to avoid any danger, that's why he always made me stay inside when the dragons attacked.\n\n\"What have we got?\" he asked Spitelout, his second-in-command.\n\n\"Nadders, Gronkles, Zipplebacks. And someone saw a Monstrous Nightmare.\"\n\n\"Any Night Furies?\"\n\n\"None so far.\"\n\n\"Good.\"\n\nI ran past the main courtyard as the other Vikings lit and hoisted the torches to light up the night sky. I made it to the blacksmiths and put on my apron.\n\n\"Nice of you to join the party, I thought you'd been carried off.\" Said Gobber.\n\n\"Who, me? Come on, I'm way too fast for them to catch me.\" I said, lifting one of Gobber's prosthetics into its slot on the wall.\n\n\"Well they need toothpicks, don't they?\" he joked.\n\nI ran over to the window just as some Vikings came up and deposited their broken weapons. I grabbed the piles and put them over the burning coal.\n\nGobber was the town's blacksmith. I had been his apprentice ever since I was little. It was the only thing remotely close to weapons and sharp objects that my dad let me do. He was close to saying no, but I was persistent and Gobber was his closest friend.\n\nI heard some voices outside and ran over to the window. I saw Fishlegs, Snotlout, the twins, Ruffnut and Tuffnut and…Caileb. They were putting out as many fires as they could with buckets of water. Just as Caileb walked away from the fire he put out, a fireball landed right behind him, blowing his beautiful blonde hair around his face.\n\nCaileb Forest was the coolest, most talented Vikings of my generation. Ever since I was a little girl, I had a huge crush on him. Every time I looked at him, I felt my heart race speed up, my face warm up and I go weak. But why would he ever be interested in me. I mean we are best friends, but that is it just friends.\n\nTheir job was so much cooler than mine. I felt somebody grab my collar again. It was Gobber. He easily lifted me away from the window and back into the shop.\n\n\"Oh come on, please? I need to make my mark.\" I argued.\n\n\"Oh you've made plenty of marks, all in the wrong places.\"\n\n\"Please, two minutes. I'll kill a dragon.\"\n\n\"You can't swing a hammer, you can't throw an axe, and you can't even throw one of these.\" He said holding up a bolas, which was instantly snatched away by another Viking.\n\nYes, I wasn't strong like the other Vikings, let alone the female Vikings. Compared to all of them, I was scrawny and weak. But, I was smart.\n\n\"But this can throw it for me.\" I said setting my hand on my own invention. It instantly opened up and shot one of the Vikings in the window.\n\n\"Now, this is what I'm talking about. Look what you've done.\" He said, getting irritated with me.\n\n\"It was just a mild calibration issue.\"\n\n\"Listen Hicca, if you ever want to get out there and fight dragons you need to stop all of… this.\"\n\n\"But you just pointed to all of me.\"\n\n\"Yes, that's it! Stop being all of you.\"\n\n\"Oh, you sir are playing a dangerous game, keeping all of this raw Viking-ness contained. There will be consequences!\"\n\n\"I'll take my chances. Sword. Sharpen. Now.\" He handed me a sword, a very heavy sword and I took it over to the sharpening wheel.\n\nOne day, I'll get out there, because killing a dragon is everything around here.\n\nA Nadder head might get me at least some attention. Gronkles are tough. Taking down one of those would definitely get me way more attention, maybe even a boyfriend (maybe Caileb) . A Zippleback? Exotic. Two heads, twice the status. And then there's the Monstrous Nightmare. Only the best Vikings go after those. They have this nasty habit of setting themselves on fire.\n\nBut the ultimate prize is the dragon no one's ever seen before. We call it the…\n\n\"Night Fury!\"\n\n\"Get down!\"\n\nThe Night Fury's natural sound was heard and one of the catapults exploded.\n\nThis thing never steals food, never shows itself and never misses. No one has ever killed a Night Fury, that's why I'm going to be the first.\n\nI walked back into the shop to see Gobber putting on his axe prosthetic. \"Man the fort, Hicca. They need me out there.\" He walked out the door but turned. \"Stay. Put. Here. Oh you know what I mean.\" He let out a battle cry and raced into battle.\n\nI quickly took this opportunity and pushed my bolas shooter out of the shop as Vikings continued asking what I was doing. I pushed it through all the chaos to a quiet spot in the village. I pulled out the shooter and got ready, waiting for my target.\n\n\"Come on, Give me something to shoot at. Give me something to shoot at.\" I could hear the dragon's cry in the distance, but I couldn't see anything against the night sky. I squinted my eyes and saw something move across the stars. I could hear the sound of the Night Fury as it blew up the catapult right in front of me. I saw it for a second only and fired the bolas. The force of the shot easily pushed me onto the ground.\n\nI heard a snap and roar. I quickly sat up and saw a dragon fall from the sky into the woods. \"I hit it! Yes, I hit it! Did anybody see that?\"\n\nI turned around to see a Monstrous Nightmare behind me and crush my bolas shooter under its foot. \"Except for you.\"\n\nThe dragon lifted its head. I didn't need to know what that meant. I bolted down the road, letting out the loudest scream I could. I ran back into the village and hid behind a pillar. I felt the heat of the dragon's fire and screamed when I felt it burn my skin.\n\nI peered out to my right and didn't see the dragon. I suddenly felt like something was behind me. I turned around and screamed when I saw the Nightmare open its mouth.\n\nAll of a sudden, Stoick appeared and tackled the Nightmare. The dragon tried to breathe fire, but nothing came out. \"You're all out.\" Stoick punched the Nightmare, causing it to fly away in retreat.\n\nAll the other Vikings had arrived to the scene, so I took the opportunity to sneak away. I felt someone grab the back of my jacket and push me out to my father. I turned my head and saw that it was Caileb, giving me a sorry look.\n\n\"Sorry, dad.\" I mutter. \"But I hit a Night Fury.\" I felt my dad grab my jacket and walk away, forcefully dragging me along with him. \"It isn't like the other times, dad! I really hit it! It went down near Raven Point. We can get a search party…\"\n\n\"Stop!\" he shouted at me. He never shouted at me. I flinched at the harshness in his voice.\n\nHe saw that and softened his tone. \"Just stop. Every time you step outside, disaster follows. Can you not see that I have bigger problems? Winter is almost here and I have an entire village to feed!\"\n\n\"Well between you and me, he village could do with a little less feeding don't you think?\"\n\n\"This isn't a joke, Hicca! Why can't you follow the simplest of orders?\"\n\n\"I can't help it. I see a dragon and I just have to… kill it. You know? It's who I am, dad.\"\n\nMy dad rubbed his temple. \"You are many things, Hicca. But that is not one of them. Get back to the house. Make sure he gets there.\" He said to Gobber. \"I have her mess to clean.\"\n\nI walked past the other teenagers with Gobber.\n\n\"Quite the performance.\" Said Tuffnut.\n\n\"I've never seen anyone mess up that badly. That helped.\" Said Snotlout.\n\n\"Thank you, thank you. I was trying.\" I replied sarcastically. I looked over to Caileb and he shot me a look of disappointment. I averted my eyes away from him and marched up to my house.\n\n\"I really did hit one.\"\n\n\"Sure, Hicca.\"\n\n\"He never listens.\"\n\n\"It runs in the family.\"\n\n\"And when he does, it's always with this disappointed scowl like someone skimped on the meat in his sandwich. I get that he's protective of me since mom was killed by a dragon, but it's not like I'm gonna end up the same way! And just look at me! I'm not like all the other Vikings! I'm a talking fishbone!\"\n\n\"You're thinking about this all wrong.\" Said Gobber. \"It's not so much what you look like, it's what's inside that he can't stand.\"\n\nI looked at him. \"Thank you for summing that up.\"\n\n\"Look, the point it, stop trying so hard to be something you're not.\"\n\n\"I just want to be one of you guys.\" I opened the door and stepped in, shutting it before Gobber could respond. I quickly dashed through the house and jumped out the back door to find the Night Fury.\n",
+		"0002": "## Chapter 2: Advice ##\n\nStoick had gathered the Vikings into the main hall decorated with tapestries and a huge golden dragon statue being impaled by a knife. He stood at the main table with a fire pit in the middle. He had a map displayed for those around him to see.\n\n\"Either we finish them, or they're finishing us! It's the only way we'll be rid of them. If we find the nest and destroy it, the dragons will leave. They'll find another home.\" He pulled a knife and stabbed the map. \"One more search, before the ice sets is.\"\n\n\"But those ships never come back.\"\n\n\"We're Vikings, it's an occupational hazard. Now who's with me?\" Nobody spoke up. Instead they whispered words to each other. \"Ok, those who stay will look after Hicca and make sure she stays out of trouble.\"\n\nEveryone immediately raised their hands. \"I'm with you Stoick.\" Said Spitelout.\n\n\"That's more like it!\"\n\nThe meeting was dismissed and Stoick walked to his close friend, Gobber and sat next to him. \"I'll pack my undies.\"\n\n\"No, I need you to stay and train some new recruits.\"\n\n\"Oh perfect. And while I'm busy, Hicca can run the forge. Molten steel, razor-sharp blades, lots of time to herself. What could possibly go wrong?\"\n\n\"What am I going to do with her, Gobber.\" Stoick sighed.\n\n\"Put her in training with the others.\"\n\n\"No, I'm serious.\"\n\n\"So am I.\"\n\n\"She'd get hurt before you even let the first dragon out of its cage!\"\n\n\"Maybe that's because you've spent her entire life hiding her from danger, shielding her from the world. Besides, you don't know that.\"\n\n\"I do, actually.\"\n\n\"No you don't.\" said Gobber.\n\n\"Actually, I do.\"\n\n\"No, you don't!\" Gobber said with more force.\n\n\"Listen, you know what she's like. From the minute she could walk, she's been…different. She doesn't listen, she has the attention span of a sparrow. I take her fishing and she goes hunting for…trolls!\"\n\n\"Trolls exist.\" Gobber turned. \"They steal your socks. But only the left ones, what's with that?\"\n\n\"When I was a boy\" began Stoick.\n\n\"Oh here we go again!\" Gobber mumbled.\n\n\"My father told me to bang my head against a boulder and I did it. I thought he was crazy, but I didn't question him. And you know what happened?\"\n\n\"You got a headache?\" Gobber asked amusedly. During that little trip down memory lane, he took a sip out of his mug and his fake tooth in his mouth. And he put it back into place and used his mug to hammer it to make sure it stayed in there.\n\n\"That rock split in two.\" Stoick corrected. \"It taught me what a Viking could do Gobber; he could crush mountains, level forests, and tame seas.\" He sat down next to his friend. \"Even as a boy, I knew what I was and what I have become…\" he hanged his low, \"Hicca isn't the kind of person that can do those things.\"\n\n\"You can't stop her Stoick, you can only prepare her. You won't be able to hide her from the world forever. I know it seems hopeless but you won't always be around to protect her. She's going to get out there again. She's probably out there now!\"\n\nBut what they didn't know was that what Gobber said was very much true...\n",
+		"0003": "## Chapter 3: The Hunt ##\n\nI managed to get away from Gobber once I was inside my house. I was so glad he didn't come inside with me. I held my sketchbook, which showed a map of Raven Point, in my hand while walking around the area where I saw the Night Fury go down. I had tons of X marks on locations where I hadn't found the dragon. I came up to another potential spot and held my breath. I closed my eyes, hoping to have found it. Once I opened them, I sighed.\n\nNot a around dragon here.\n\nI put another X and then angrily scribbled over the map. I put the pen in my book and put in it my jacket. 'This was crazy! I must have looked all over the entire forest!'\n\n\"Oh the Gods hate me.\" I said to myself. \"Some people lost their knife or their mug. Not me. I manage to lose an entire dragon!\" I smacked a branch, but it swung back and hit me right across my face. My hand flew up to my head and I felt something wet. I looked at my hand and saw a small droplet of blood.\n\n'Great…now dad would go ballistic over this.' He always went crazy over any little injury.\n\nI looked at the branch, angry at it. But then, I noticed that the tree was split down the trunk…like something crashed into it. My eyes followed the trail left in the dirt. 'No...Could it really be that easy?' I slowly slid down the trail and climbed up the little hill. I saw something big and black with wings and instantly took cover behind the hill. I slowly poked my head up and saw that it was the Night Fury and wasn't moving. It was still wrapped securely in the rope and round rocks. With shaky hands, I quickly reached in for the knife in my jacket that dad always made me carry.\n\nI took a deep breath and climbed over the hill, hiding behind a big rock for a moment. 'Ok, just relax. I can do this…It's just a dragon...a dragon.'\n\nI peeked out from behind the rock and saw that it wasn't moving. I stepped out and slowly made my way to i. \"Whoa, I did it! This fixes everything! Yes! I have brought down this mighty beast!\" I put my foot on the side of the dragon to make a victorious pose when it suddenly moved and let out a growl. I cried out and fell back against the rock, holding the knife out in front of me.\n\nI held the dagger shakily in my arms as I walked up to the dragon. I crept up to the dragon and saw it look at me with its beautiful green eyes.\n\nI took a deep breath. \"I'm gonna kill you dragon.\" I said, only half believing myself. \"I'm gonna cut out your heart and take it to my father. I am a Viking. I am a Viking!\" I shouted to the dragon.\n\nIt made another sound, but I ignored it. It looked at me again with those big green eyes. I shut my eyes and raised the knife above my head. I opened my eyes and saw it widen his eyes at me. It wasn't trying to escape... it didn't even struggle against the ropes that tied. It looked so scared.\n\nI shut my eyes again, trying to burn the image of the dragon looking at me. I raised the knife higher and heard the dragon give in and lay its head on the ground. It wasn't even resisting...I held the knife up forever trying to find the courage to kill the monster. But its eyes… there was something about its eyes that made me hesitate.\n\nI rest my arms on my head and let out an angry, defeated sigh. I couldn't do it. It was helpless and I had my chance, but I couldn't do it. I stepped back and took in the damage I had done to this creature. All because I was trying to be something I'm not. I knew what I had to do. I walked up to the dragon and began slicing through the ropes that restrained it. The dragon's eyes instantly shot open when he heard the sound of the ropes being cut.\n\n\"Don't worry, little... err… dragon.\" I said, reassuring it. Once the ropes on its wing were cut and the dragon's scaly-skin started to bleed into my wound. And it hurt like acid being poured on your skin. Out of all of that I heard \"Thank you deal maker.\" He or she jumped up and flew off into the forest.\n\nI sat up, my heart racing from blood loss. I wiped away my tears and slowly stood up, with the strength I had. Picked up my knife and started back to path. In less than three steps I felt all my energy leave my body as my knees went weak. I fell to the ground as darkness surrounded me.\n",
+		"0004": "## Chapter 4: The Deal ##\n\n**Hicca**\n\nAn hour or two later my senses slowly came back to me. My eyes opened to the world, as I carefully pulled myself from the ground. 'I'm still in the forest! Dad is going to kill me if I don't get back soon!' I thought as I saw the sun setting through the trees.\n\nI start running towards the village trying to get there as fast as I could. Tree branches wiping my face as I run by. What I didn't notice was the wound was healed over, but darkly colored.\n\n**Berk**\n\n\"Hicca. There you are,\" he stated, turning back into the house. She followed, scuffing her feet along the floor in a reluctant manner. \"I need to talk to you.\"\n\n\"Yeah, I kinda have something important to tell you too, Dad,\" I sighed. \"I really don't think I want to go into Dragon Training after all,\" I say quickly.\n\nSimultaneously, Stoick said, \"I've entered you in Dragon Training..\"\n\nThey both paused.\n\n\"What?\" Hicca asked.\n\n\"Dragon Training. You're entered,\" Stoick conceded.\n\n\"Oh. Oh! Oh, no, Dad, that's what I was trying to tell you, I...uh...\" I try saying but can't find the words. \"I've kinda changed my mind. I mean, I'm not really cut out for Dragon Training, I think we both agree on-\"\n\nHe interrupts me by giving me the axe, which fell to the floor right after.\n\n\"Dad, I really don't want to fight dragons,\" I tell him. \"I'm no good at it.\"\n\n\"That's what the training part is for,\" he replied, picking the axe back up off the floor. \"You improve.\"\n\n\"But I can't kill dragons!\"\n\n\"You will.\"\n\n\"No, I really, really don't think I will! I'm certain, actually!\" I reply. He ignored the what I was trying to say. \"This is not up for debate. You're training.\"\n\n\"But Dad, I just said-\"\n\n\"You will train, and you'll train hard. This is important Hicca, and it's time you learned.\"\n\n\"Are you even listening to me?\"\n\n\"See, this,\" he points at me. \"Is the problem. I want it to stop, right now. The axe is to be your weapon during training,\" he thrusts the axe at me. \"Use it well.\" I struggle with trying to hold the axe and stay upright at the same time. \"Do you understand?\"\n\n\"Yes,\" I whisper to him, almost inaudibly. Still struggling with the axe.\n\n\"Good. Right, then I'm off. I'll be back...probably,\" he tells me, putting on his helmet and picking up his supplies.\n\n\"Yeah. And I'll be here...\" I said to him. As he opens the door and walks out of the house\n\n\"...I think.\" I finished as the door shut. I let the bottom of the axe hit the floor. 'I'm going to disgrace Dad and the family aren't I.' I think to myself.\n\nI start walking up to my room to tiredly. I fall onto my bed thinking on what I'm going to do tomorrow at training. 'This is going to be the worst month ever.'\n"
+	},
+	"alla-and-taeh": {
+		"id": "0002",
+		"name": "Alla and Taeh",
+		"undername": "alla-and-taeh",
+		"date": "8/25/2016",
+		"data": "A loli cat and a fox scientist, what could go wrong?",
+		"0001": "**Taeh**: \"Both of my tails are but my tongue ain't\"\n\n**Alla**: *Well there goes the fucking PG thing* *Also I am actually RPing a character I made quite some time back that is a female/cat/assassin/oblivious comedic relief/loli* \"B-but... I don't like being given a bath by others\"\n\n**Taeh**: \"Well we'll be taking lots of baths with each other\"\n\n**Alla**: \"... You know I don't take actual baths right? I clean my fur by licking it\" *Stares confused*\n\n**Taeh**: \"Exactly what I mean\" *Smiles foxyly*\n\n**Alla**: *Okay these characters; 1) need to be properly presented with names, gender, and race at least, 2) an explanation as to why they know each other* \"Umm... I don't get it. Could you please explain?\"\n\n**Taeh**: \"We'll be cleaning each other quite thoroughly\"\n\n**Alla**: \"Nya, Alla is so confused\" *Storms off frustrated, sways and flicks tail vigorously trying to gather her wits. Finally, after a moment of contemplation Alla quickly turns around and says* \"Well if you desire to bathe with me so badly then fine\" *Alla starts licking her own arm to begin cleaning herself even though she already did this earlier that day*\n\n**--- I didn't get all of the text---**\n\n**Taeh**: \"Let me rephrase that for you how do you want me to eat you?\"\n\n**Alla**: *Blinks rapidly not quite comprehending the question. As the question begins to make more sense her ears flicker subtly and seem to grow slightly darker than normal while her tail twitches occasionally...* \"*Gasp* Y-y-you mean... But... Right now?... I...\" *Blood rushes to her face as she exclaims and losses her ability to make full logical sentences*\n\n**Taeh**: \"What better time than now?\" *He says while brushing his long tail under her chin*\n\n**Alla**: *Her face glows red and she bites her lip* \"Well I suppose we could...\" *Shifts around somewhat uncomfortably* \"I-if you really insist... Just be gentle, it's my first...\" *She looks to the left for a moment (seemingly to contemplate with herself), then she sits upright and nuzzles his neck* \"*Whispers* Take good care of me... I am scared\"\n\n**Taeh**: \"Then let me make the first move\" *He says then wraps his arms around her and pulls her in to a kiss*\n\n**Alla**: *Try’s to get as close as possible, pushing her chest against him. She is entranced by the warmth from Taeh's body and the pressure of the kiss. She wraps her small arms around his back and rubs her flat chest against his broad chest blushing madly and her brain forgetting to care*\n\n**Taeh**: *Without breaking the kiss her lays her down onto her back, he moves his arms down and under her shirt and starts to massage her sides, slowly moving up then*\n\n**Nuro**: *Walks into the room unaware, then sees Alla and Taeh in a less than innocent position locked in a deep kiss* \"...I-I-I... WHAT THE HELL ARE YOU TWO DOING!?!?\"\n\n**Alla**: *Ears shoot straight up and her head snaps towards the source of the voice. She finds herself looking at her bride in shock and absolute disbelief* \"I... He... But... It's not-\" *She is cut of by Nuro bursting into tears and running out of the room. Alla crawls out from under Taeh to chase Nuro to try to apologize and face a possible rejection from her love*\n\n**Taeh**: *Confused from the shouting and from Alla rushing out from under him. It takes Taeh a moment to compose himself* \"Okay Alla, who in Ashala's name is she and what is going on!\" *Taeh screams as he runs after the two*\n\n**Alla**: \"That's my waifu, remember! You were there when it happened almost 4 months ago when we were forced to get married!\"\n\n**Taeh**: \"I thought that was fake, I mean it happened in Greece, one of us was dressed as Elvis, another was dressed as a member of Kiss, and I don't think the guy was qualified to marry the two of you, to be honest I think he worked at a Red Robin. Or was that when we filled a dragon with four tons of crystal meth that Loki stuffed a cow with when he visited?\"\n\n**Alla**: \"Soaryn wasn't exactly the most orthodox priest ok!\"\n\n**Taeh**: \"He may have not been the best but at least he's better than Gabe who couldn't count how many people where going to be there... At least he remembered the ';' this time.\"\n\n**Alla**: \"What does that have to do with our current situation!? Need I remind you that Nuro is a half-meta half-demon hybrid that can't control herself under extreme situations and emotional outbursts!\"\n\n**Taeh**: \"Just give her an angel's star necklace, I mean it worked for Buwaro for all those years right?\"\n\n**Alla**: \"A) I don't know where to begin looking for it B) we don't have enough time to look for it C) if we took it off Buwaro wouldn't we have another problem in exchange for our current problem!?\"\n\n**Taeh**: \"If need be I could have Eriylia give me a lift to go ask Snowy for hers while you deal with Nuro, or I can call Loki to bring some meth?\"\n\n**Alla**: \"And you wonder why they rejected your application to become a dimensional guard. No, no, no, no, and no.\" *Kicks Taeh in the sjin to get him to stop running with her*\n\n**Taeh**: *Before he got kicked in the sjin* \"HEY! That application form was perfectly sane.\" *He trips and falls from getting sjined, then rolls head over tail, over and over* \"Ow, ow, oww, ow!\" *He face plants the ground*\n\n**Alla**: *Turns back to quickly get him back to his feet* \"How many times did drugs of any kinds come up? And how many arrests did you have to confirm for them?\"\n\n**Taeh**: *Thinking, thinking... thinking* \"About 10 times and about 15 arrests?\"\n\n**Alla**: \"How in tartarus do you call that sane!?\"\n\n**Taeh**: \"HEY! That was only a few of the things I mentioned. Out of rolly pollies, skooma, meth, and dinners with Thor it was quite sane.\"\n\n**Alla**: \".. You put ALL of that on your application? Sometimes I wonder if you realize what comes out of your mouth sometimes. We have a job that doesn't even officially exist and we do things that bring the laws of reality into question... and you put half of it into an application for a group of people that have devoted their lives to trying to prove what we do can't possibly be reality!\"\n\n**Taeh**: \"OH YAH. I forgot I had a job... what was it again, I forgot. Also I think no matter what we do we bring any laws of anything into question, I mean isn't it what we do? Break reality and the 6 dimensions?\"\n\n**Alla**: \"7... There are, but only 6 are confirmed. As for your job, ugh, how do you forget what we do on a regular basis after being my assigned team mate for 6 years! We are \"The Department of Etherial Random Phenomenons\" or D.E.R.P for short.\n\n**Taeh**: *Mutters* \"Yah the seventh is my pants\" *Normal voice* \"Wait if we have been team mates for six years how do I keep forgetting? And if we work for the government, what were we doing in Greece? For that matter how do I even remember Greece?\n\n**Alla**: \"I don't know why you keep forgetting, it is the only thing you have ever had trouble remembering. We don't work for a planetarly bound government, it is unofficial and therefore not bound by normal regulations. And why you remember Greece... I could even begin to tell you. We are supposed to be on vacation.\n\n**Taeh**: \"Wait we're on vacation? When did that happen?\n\n**Alla**: \"We got here three days ago. You, Nuro, Tyr, and myself.\n\n**Taeh**: \"Whos Tyr?\" *Smilies oddly and says in an odd voice* \"Is it Loki?\"\n\n**Alla**: \"No we didn't bring Loki with us because of what you two did the last time we trusted you alone together... Tyr is your gender bender friend that you introduced me to like a week ago.\"\n\n**Taeh**: \"Oh yah, him... Who's he again?\"\n\n**Alla**: \"I don't know! You two have been doing your own thing seperate from Nuro and I.\"\n\n**Taeh**: \"I need help or something because I don't remember a thing. Also when did I go off doing my own thing?\"\n\n**Alla**: \"I think it was right after we got our rooms set up that you two left... my memory of that night is really fuzzy... whats going on?\" *As they reach the door leading outside Nuro walks in perfectly calm*\n\n**Nuro**: \"Oh! There you are Alliana my love!\"\n\n**Taeh**: \"Um time distortion much? Either that or she found my DMT stash.\"\n\n**Nuro**: *Looks up at Taeh and tilts head in confuzzenment while hugging Alla tighly* \"You know I don't do drugs.\"\n\n**Alla**: \"No, not time distortion. Memory manipulation of some sort. She never forgets anything, in case you forgot that too, meaning someone or something must have intentionally changed it. But the questions now are who, what and why?\"\n\n**Nuro**: \"What was I forced to forget that made you two run down the hall?\"\n\n**Taeh**: \"Nothing! Nothing at all!\" *Thinks for a moment... still thinking* \"The only person I know that can manipulate memories, that I can still remember would be Nyrena but I thought she left the country.\n\n**Alla**: \"How do you remember Nyrena, but not anything else?\"\n\n**Nuro**: \"Stop ignoring meh!\"\n\n**Taeh**: *At Nuro* \"Be quite Nuro I'm talking!\" *To Alla* \"Yah I think it's because she was working on my mind that I can remember her, but I'm not sure.\"\n\n**Nuro**: \"I wasn't talking to you to begin with meanie. I was talking to Onii-chan\" *Sticks tongue out*\n\n**Alla**: \"Just ignore him Nuro, it wasn't anything too important. You just ran off suddenly and we didn't know why\" *At Taeh* \"Isn't that right Taeh? Thats what happened, isn't it? *Slight shift in tone*\n\n**Nuro**: \"That sounds really strange of me to do-\"\n\n**Taeh**: *Mutters* \"That's what happened in your world.\" *Nornal voice* \"Yah you just ran off, we just followed to see what's up. Ro what happened?\"\n\n**Nuro**: \"Don't call me that *Pouts* I don't remember it to begin with so I couldn't tell you. I must have had a daydream or something.\"\n\n**Alla**: \"Well should we go and try to find your friend then Taeh?\"\n\n**Taeh**: \"Well I'm sure you don't want me to call you Nur now do yah?\" *Thinks about where to find Nyrena* \"Well the last person she talked to was Bastet so we need to go see her to find Nyrena.\" *To Alla* \"I think you'll like Bastet, Alla.\"\n\n**Alla**: \"Not her, the gender bender that you brought with you. He might be able to help us remember what has been going on for the last few days.\"\n\n**Nuro**: \"Just call me by my name idot!\"\n\n**Taeh**: \"No I will not call you by your name Ur. Okay but where do we start looking for it? Because I don't remember.\"\n\n**Alla**: \"You can't keep track of the ultimate friend with benefits, but you can manage to locate countless underground drug dealers... *Sigh*\"\n\n**Taeh**: \"It's what I do dearie, but I can also sell a piece of gravel in the black market for a good price thought, and please don't ask why I'm poor even though I can do that.\"\n\n**Nuro**: *Confused and questioning Taeh's sanity again*\n\n**Alla**: \"Anyway we need to find that thing of yours... Not the first one that comes to mind either.\"\n\n**Taeh**: \"Okay we'll go looking for it but the thing is I can't remember where to find him.\" *Mutters* \"I need Nyrena's help badly.\"\n\n**Nuro**: \"Alliana~ Can you make meh a salad?\"\n\n**Alla**: \"No I can't Nurosira.\"\n\n**Taeh**: *Confused as all hell* \"Why are you talking about salad, we need to figure out why Nuro lost her memories, *whispers to Alla* although if she does I think she will remember what we did and get angry again. But yah let's find it.\"\n\n**Alla**: *Ears flicker* \"I think we'll be fine, *tries to redirect the subject* maybe it was just a daydream or something. *obviously fake laugh*\".\n\n**Nuro**: \"Your acting strange Alliana, are you alright?\"\n\n**Taeh**: *Tries to cover for Alla* \"Umm.. Yah she's um.. Fine... She's just still trying to figure out why you started freaking out and then ran from the room for no reason.\"\n\n**Alla**: *sigh of relief* \"Ya, you know how much I care about you dear~ *Flickers tail back and forth to make a point* It is only natural for me to be worried about you when you do something like that~\" *Gives Nuro a quick peck on the cheek and begins walking back to the room to make Nuro the salad that she said she wouldn't make*\n\n**Taeh**: *Confused as to why Alla left* \"Okay I thought we were looking for 'it'?\" \"So Nuro, umm how have you been other than the freak out moment you just had?\"\n\n**Nuro**: *Confused as to why Taeh is suddenly nice to her* \"Umm... I am alright..... I suppose. Why do you care?\"\n\n**Alla**: \"Nuro you know he was just teasing you *Licks Nuro's ear to fluster her so that she will shut up* he doesn't try to be mean. *Grins*\"\n\n**Nuro**: *On the verge of feinting from embarrassment* \"N-N-N-Not ear! I mean h-here! I mean...\" *Feels Alla's tail wrap around her leg and passes out*\n\n**Taeh**: *Before she passes out* *Too Nuro* \"Okay, how was I teasing you? I was just asking if you were okay. And I'm caring... Sometimes.\" *After she passed out* \"Okay then never mind.\" *To Alla* \"Umm is she okay.\"\n\n**Alla**: \"She'll be fine. Maybe a small nose bleed but nithing serious.\" *Flickers her tail*\n\n**Taeh**: *A short pause* \"Umm... Okay, so are you going to wake her up or no, because I'm sure we don't want to carry her around.\" *Pause* \"*Sigh* This is going to be a long day.\"\n\n**Alla**: \"Its alright, I will carry her too the couch\" *smiles, licks Taeh's cheek, then walks down the hall and into the doorway. She stops for a moment and looks over at Taeh* \"If it was up to me... I would be with you instead....\" *walks into the room and closes the door half way*\n\n**Taeh**: *Follows after her and opens the door and sees her laying Nuro down on the couch and gets her attention by knocking on the door frame* \"You do know you aren't married right, 1) it was forced, 2) it was Soaryn who married the two of you, and 3) I thought we weren't with the government.\" *Stops suddenly out of realization* \"How in the world did I remember any of that... Oh well just did.\" *Thank you gods :)* \"As about me an you if Nuro remembers what we did how are we going to explain it?\"\n\n**Alla**: \"1) I wasn't forced, I did it willingly because of the circumstances 2) you have a fair point 3) yes we don't agree with the government, but they don't officially know who we are and what we actually do.... Especially YOU! And if she does wake up and remembers then I will blame you\" *grin* \"and 4) I couldn't do that to her.\"\n\n**Taeh**: \"Now you probably don't have any but do you have any meth or LSD? I'm going to need some soon.\"\n\n**Alla**: \"Umm... No I dont have any and why will you need it? Now that i think of it, those drugs might be what is giving you those memory lapses.\"\n\n**Taeh**: \"Well I'm going to need something to drug Nuro with when she wakes up so I can get away, and yah your probably right now that I think about it.\"\n\n**Alla**: \"You are not drugging her. And if you did you would have me to deal with. You remember my nickname at D.E.R.P. right?\"\n\n**Taeh**: *Shutters* \"Okay yah I won't I don't want to deal with you, and I do drugs remember so no I don't remember. Was it bone breaker?\"\n\n**Alla**: \".... Really? Your the one who gave me the nickname! You called me Red Fur! And of course it stuck very quickly.\"\n\n**Taeh**: \"Oh yah forgot 'bout that... So what do we do now, Nuro fainted, I'm out of drugs and we don't know where to find it.\"\n\n**Alla**: \"Alla it fine, all i did was make her heart rate increase drastically. She isn't used to intimacy. When she sees or experiences it she will do one of two things; A) she will try to run away, B) she will faint. She couldn't get away because I wouldn't let her, that left he with option B, which is a subconscious action. All I did was bite her ear and rub my tail up her leg.\"\n\n**Taeh**: \"Okay but how long will she be out for or do we have some way of waking her up? The only way I know how is by drugging her, but you don't want me to do that.\"\n\n**Alla**: \"You wanted to drug her to put her to sleep! Nonetheless, she will wake up eventually.... just a matter of time, blood, and a little bit of magic\" *grins slyly and looks at Taeh who is obscenely confused as it is* (Anyone who gets this wins a snickers)\n\n**Taeh**: \"Well drugs could wake her up, adrenaline for example, or do do you want me to plug her into an ink circuit and wake her up with a nerve response?\"\n\n**Alla**: \"your not drugging her and that is final!\"\n\n**Taeh**: \"Okay so we just sit here and wait?\"\n\n**Alla**: \"Well there ARE other things that we can do too\"\n\n**Taeh**: \"Umm is this the best time? I mean Nuro is out on the couch.\"\n\n**Alla**: \"Not that you idiot! I meant figure out were the others Iare at!. ... and nobody said we had to use the coach *shyly*\"\n\n**Taeh**: \"QUICK TO THE CABNET! Wait what? Fine then we'll do that then.\"\n\n**Alla**: \"I just said not right now! *blushes* and why the cabinet?\"\n\n**Taeh**: \"Got to mark our territory.\"\n\nAlla: *quite flustered now* \"w-w-wha... b-b... NYAA\" *punches Taeh in the stomach*\n\n**Taeh**: \"OW! That hurt! That's going to leave a scratch now, thanks!\"\n\n**Alla**: \"It's supposed to hurt and it would leave a bruise you idiot!\" }:3\n\n**Taeh**: \"So... You going to wake her, because we need to go. And don't give me the kitty face.\"\n\n**Alla**: \"what are you talking about? \" *feint blush, tilts head ~86.505279 degrees........... Sneezes*\n\n**Taeh**: \"Fine you want me to pump some drugs into her then!?! You're the one who want to fix Nuro's brain memory problem! Look at me you're making me remember stuff!\"\n\n**Alla**: *sneezes eight times in a row* \"pump her with drugs and I will make sure to torment you the next time I go into heat.\" *she glares at Taeh having completely thrown the \"innocent act\" out the window and burning it*\n\n**Taeh**: \"Bless you^8. How would you torment me by being in heat, well if you pull off an 'Ohio Heat' think then maybe you cou....\" *shuts up* \"But yah you need to wake her up.\"\n\n**Alla**: \"y are u so insistent on waking her up anyways?*\n\n**Taeh**: *BLAME THE PLOT!* \"I thought I went over this you wanted to fix her memory problem by getting Nyrena or do you want me to work on her brain while she's out?\"\n\n**Alla**: \"it is NOT that urgent and you are not working on her either!\" *suddenly makes a curious face* \"although I do wonder how she looks in a nightgown\" *giggles*\n\n**Taeh**: \"Wait are you actually in heat or you just brought it up because to day you've been a bit dovy and I want to make sure she doesn't remember what we did.\"\n\n**Alla**: \"I don't think I am in heat... Anyways, she can't remember if she is asleep and if she does we can say she was dreaming *snickers*.... like you~ *winks*. and she could wake up at any time so you really should stop bringing it up\"\n\n**Taeh**: \"Okay.... Then what do we do now?\"\n\n**Alla**: \"I don't know, chase yarn?\" *throws 5 pounds of yarn a Taeh*\n\n**Taeh**: \"Well foxes don't chase yarn... At least I don't think they do?\" *Doesn't see the 5 pound ball of yarn coming at him* \"Were are you going to find yarn, since you're a cat I could go and find some cream yo Ough*gets hit by ball o'yarn* why you'd throw that!?!\"\n\n**Alla**: \"They are yarn and they wet which makes them softer! how would that hurt you!?\"\n\n**Taeh**: \"I DONT KNOW OKAY!\" *Turns on hand break*\n"
+	},
+	"alpha-and-omega-uncovering-the-past": {
+		"id": "0003",
+		"name": "Alpha And Omega: Uncovering The Past",
+		"undername": "alpha-and-omega-uncovering-the-past",
+		"date": "8/25/2016",
+		"data": "Kate lost her memory and the Western Pack has to get her back but will she come back after she meets Caileb the old Southern Pack Leader?",
+		"0001": "## Chapter 1: 2 Years ##\n\n**Kerbces POV**\n\n\"Kerbces, be a alpha and settle your brothers and sisters down for me?\" mother said.\n\n\"Ok, mom\" i answered and went off.\n\nI went to my brothers and sisters and being the only alpha pup, I have to do a lot of physical and mental exercising to prepare for hunting. My being mom Kate an alpha and my dad Humphrey an omega is different, but it helped find many other wolves a partner.\n\n\"Will you five settle down. Mom wants you to save the instantly for dad.\" I commented sternly.\n\n\"Oh, loosen up Kerbces we're omegas, what do you expect.\" Arein, one of my younger sisters.\n\n\"Yeah, you're always so stern. Have a bit of fun.\" agreed Vincent, the most hyper and psycho of the omegas, but everyone calls him Venus.\n\nBut before i could respond they all trampled me, that told me it was moms turn to hunt.\n\n**Humphrey POV**\n\n\"Well see you around Garth\" I added.\n\n\"Same to you Humphrey, and you're getting better at hunting.\" replied Garth.\n\nI ran off and when I got to the den my five omega pups tackled me, and at the same time I quickly tackled and flipped them over.\n\n\"Hey dad\" greeted Kerbces.\n\n\"Good morning Kerbces,\" I replied \" how's mom?\"\n\n\"She's sleeping still\" Kerbces answered rolling his eyes.\n\n\"Hey you respect your mother... she goes hunting at sun rise and doesn't come back till mid night\" I snarled.\n\n\"Oh shut up... I know she does, but you haven't even brought home a mouse leg\" Kerbces snapped.\n\n\"I'm only a omega in alpha training, I'd like to see you try and kill a mouse\" I yelled angrily.\n\n**Kate POV**\n\n\"Kate wake up... hey Kate?\" a voice said.\n\nAs I open my eyes I see Humphrey flying right at me!\n\nThen faster than i could move, he landed right on me.\n\n\"Ugh, Humphrey... get... off...me\" I said toppling both of us over.\n\n\"Good morning Kate\" Humphrey greeted me slightly hyper, but still as cute as ever.\n\n\"Good morning Humphrey\" I responded with a smile.\n\nWe nodded our head at the same time and i kissed him, so we can go hunting.\n",
+		"0002": "## Chapter 2: The Hunt ##\n\n**Kate POV**\n\nAfter waking up I was ready to hunt.\n\nI have a good feeling about today's hunt and i could taste the caribou in the air.\n\nJust then I saw Lilly.\n\n\"Hey, sis are you finally going hunting?\" I half teased, half asked.\n\n\"Sure I'll give it a shot for once. But I just came to get some flowers for tonight's moon light howl\" replied Lilly.\n\n\"Oh no I totally forgot!\" I cried.\n\n\"Oh don't worry Kate, I'm very sure Humphrey didn't forget,\" Lilly gestured.\n\n\"Now maybe we should get going for the hunt\"\n\nSo we headed off and establish our posts. Lilly and Bax (a new alpha we got) and I in the west.\n\nThey drove the caribou towards us and...\n\nWe ambushed them.\n\nIt seemed simple enough so we went for it.\n\n\"Hey I think I hear them coming\" warned Lilly and she was right.\n\nIn just seconds I saw them coming two hundred yards away.\n\nWithin a matter of seconds we attacked... then the next I'm lost with my memory.\n\nSo I went looking for someone and I did.\n\n\"Hey you... yes you I need your help\" I called to him.\n\n**Caileb POV**\n\n\"Oh man I've be spotted\" I thought to myself. Then a wave of relief...\n\nShe wanted my help.\n\n\"What do you need\" I asked with my claws at the ready.\n\n\"Yes who am I and where am I? And-\" But i cut her off.\n\n\"Shut up,\" I commented \"I'm a lone wolf, so I don't know you and we're in the western half of the west/east territory... but since you seem to have forgotten everything, I will let you hang with me but keep your distance\" I said.\n\n\"Oh... thanks. You're so kind\" she said smiling and blushing.\n",
+		"0003": "## Chapter 3:  RUSHING ##\n\n\"Humphrey wake up Kate's missing!\", yelled a voice.\nAt an instant I was wide awake and outside my den and was asking what happened.\nEve, Kate's mother, answered \"Apparently Kate jumped on a caribou's back and it knocked her in the head with the back of its head and she blacked out.\"\n\n\"THEN WHAT ARE WE STILL HERE FOR! I'll get Kerbces, Jet, Vincent, Star, Freden, and Arein. You get the other alphas.\" I rushed.\n\n\"That is where I'm ahead of you.\" Eve replied as I ran into my den.\n\n\"Everyone wake up your mother is missing!\" I announced.\n\nAs soon as I finished talking they were up and wide awake.\n\n\"What happened!\", Freden exploded angrily at me.\n\n\"First off this is not the time to get pissed off at one another! Second I'll tell you on the way to the search party... EVE YOU STILL OUT THERE!\" I said hastily.\n\n\"Yes. What is it?\" She asked. \"I want ALL! possible wolves looking for her.\" I ordered.\n\n\"On it, right away.\" Eve replied and went off. \"Kerbces you go with Eve.\" I demanded.\n\nFor a moment he hesitated then ran off with out a word.\n\n\"You five with me.\" I rushed.\n\n**Kerbces POV**\n\n\"Hey grandma wait up!\" I yelled. After I said that she flipped right around at me. When I got to her she sternly said \"NEVER call me that again!\" And ran off.\n\n**Lilly's POV**\n\n\"Kate... Kate... Can you hear me!\" I yelled, but got no response. When I turn around I see Humphrey giving commands. I couldn't remember him being so serious other than that one time...\n\n\"Lilly what's the lead?\" Humphrey asked me. Unfortunately we had none except that she maybe in the Northern Territory. When I told him he started flipping out, I couldn't take the yelling, so I slapped him and ran.\n",
+		"0004": "## Chapter 4: On The Run ##\n\n**Kate's POV**\n\n\"Hey... umm?\" I asked.\n\n\"My name is Caileb.\" He said.\n\n\"Ok Caileb were are we?\" I asked \"We're in the Southern Pack Territory and yes I know that you are not from the Southern Pack because I was head alpha only a few months ago.\" Caileb answered.\n\n\"So what happened?\" I asked curiously.\n\n\"Well there was a food short-edge and I was banished,\" Caileb explained \"so here I am had they let me explain that the caribou left for the white march and we could have smashed ice to get to some fish and few would have starved.\"\n\nAfter listening to Caileb's story I felt heartbroken and somehow ever since I met him... in... LOVE. Just as I was about to tell him there was a rustle in the trees.\n\n\"By the way I forgot to tell you they are super angry and have been hunting me down.\" Caileb added. \"Maybe we should hide?\" I suggested. \"Agreed.\" Caileb answered and vanished into thin air.\n\nThen a mysterious voice yelled angrily from behind me, \"Who are you and what are you doing here?\" I slowly turned around and answered, \"I don't know who I am or why I'm here.\"\n\n\"What do you mean you don't know!\" The wolf snapped at me. \"You know what? I am feeling generous so I'll ask one more time. Who are you and why are you here?\"\n\n\"I told you I don't know!\" I yelled.\n\n\"Well, Well, Well. Looks like we have a stubborn little omega.\" The wolf pointed out.\n\"What was that?\" I snarled.\n\n\"You herd me right... stubborn... little... OMEGA!\" He screamed \" What are you going to do about it omega?\" Seconds later I was pounding them to the ground and when I got my paws on the leader I said \"Take it back or I'll shove your brain down your throat!\"\n\n\"I take it back! I take it back!\" He wined cowardly then they are off.\n\nWhen I turned around Caileb is standing behind me with his mouth hanging open... then... I kissed him.\n",
+		"0005": "## Chapter 5: News ##\n\n**Aven's POV**\n\nA familiar voice rang out, \"Attention All! Alphas and omegas Kate has gone missing and I am ordering anyone and everyone to help find her.\"\n\nAfter hearing this I ran straight to my sister Katharane, but when I got there someone had beat me here when I entered my den my nephew… Kerbces was there.\n\n\"Oh, you're hear I have some news for you…\" Kerbces started, but I interrupted.\n\n\"I know … Kate is missing, I heard.\" I commented. \"But do you know how?\" he questioned. \"Well, let's hear it then.\" I said.\n\n\"It started with Kate going to hunt when she saw Lilly, she went to say hello and after that she went to her hunting post. But she ended up trying to kill the fastest caribou possible. When she went for the neck it hit her in the face with the back of its head and she passed out. The caribou were chased to the Northern Pack Territory and then they were lost. Baxx(with his neon green afro), Hutch, Cando, and Lilly went to Cyonis, the Northern Pack leader, and got us permission to search for her during day light only.\" Kerbces explained.\n\n**Sproketz' POV**\n\n\"Sir, we found him… but, he's not traveling alone.\" My top alpha told me.\n\n\"Well who is he traveling with?\" I asked in ferreted.\n\n\"We don't know her name, but she is a skilled fighter… we think she is an alpha from another pack escorting him across borders.\" He said.\n\nAs I sat then processing the information when out of now where my most annoying omega comes up and says \"Manays.\" (in a Latin act sent) and walks away without saying another word.\n\nSo we're all standing there absolutely bewildered.\n\nFinally I speak \"I want all alphas protecting all around the border.\"\n\nThe alphas replied and ran off.\n\n**Ious' POV**\n\n\"Ok, I order for the search to be in pairs!\" Eve yelled so everyone could hear.(like she needs to XD)\n\nThe moment she finished talking I instantly went to find her Arein. Finally I found her… so, calm… so, sweet…so beautiful. The second I saw her I taped her on the shoulder, the moment she had turned around I kissed her on the lips.\n\n\"oh, it's just you.\" She said blushing.\n\n\"Yah it's me. Who would it be your brother Kerbces?\" I asked smartly.\n\n\"What was that supposed to mean?\" she questioned, the she slid her paw across my face and I turned my head to let it slid off.\n\n**Humphrey's POV**\n\nI walk up next to Eve. She turned her head and jumped 5ft away with fear in her eyes. I looked away from her and see Ious kissing Arein. I jumped off the cliff and rushed to her.\n\nWhen I reached her I am running full speed ahead and punched Ious in the face and through him by his tail. The next thing I know Arein kicks me in the groin and whimpered… but she was laughed, \"Parents.\" And she rolled her eyes at me at me and left me there while she tend to Ious wound.\n",
+		"0006": "## Chapter 6: Dark and Light ##\n\n**P.O.V. Humphrey**\n\n\"Humphrey! I need to talk to you\", Eve ordered me.\n\nI walked over to her and waited for her to start.\n\n\"Humphrey, I need to talk to you about your parents\", she said calmly.\n\n\"Ya, I know. They died in a hunting mission\", I reply hastily. \"I don't have time for a story I have already heard.\n\n\"Humphrey, sit!\" Eve commanded.\n\nI slam my whole body on the floor of the den.\n\n\"Ouch!\" I exclaimed.\n\n\"The story you know of is a fake\", Eve explains. \"Your parents died trying to kill a highly wanted wolf from the South. Unfortunately I was there to witness it.\"\n\n\"What was the wolf's name? Did he die as well?\" I ask.\n\n\"I can't remember his name, but yes he was killed eventually before he could get to the North. At the time the North was restricted to all except those who were invited were allowed in.\" she answered.\n\n\"No habla Español\", I reply.\n\n\"What?\" Eve questions me baffled.\n\n\"I don't speech Spanish.\" I reply.\n\n\"In what language?\" she asked.\n\n\"Spanish,\" I answered. Then Eve walks out without another word.\n\n**P.O.V. Caileb**\n\n\"We should take shelter for tonight.\" I said.\n\n\"Ok. How about we go inside that cavern (tavern lol).\" Answered the lone she wolf.\n\nWe walk into the cave and as we get in a fierce blizzard starts.\n\n\"So, now that we're settled in, we have to come up with a temporary name for you,\" I start.\n\n\"Like what?\"\n\n\"Anything you want it to be.\"\n\n\"Call me Rima then, and good night.\" She finalized, and went to sleep.\n\n**P.O.V. Kate/Rima**\n\nI wake up in the cave to find that Caileb has left without me. I walk outside and wander around somewhat lost. About 20 minutes later, I find a stream full of fish, so I catch one to eat it.\n\n\"Finally I found you!\" exclaimed Caileb.\n\n\"Really, you're the one who disappeared when I woke up.\"\n\n\"Sorry, I went looking for food,\" he replies. \"But it looks like you've out hunted me.\"\n\nI walk to the shade of a tree and rest until he's ready to start moving again.\n\n**P.O.V. Sproketz**\n\n\"Alphas of the Southern pack, assemble in to one huge escort and I will personally KILL them.\" I ordered.\n\nAs the pathetic lot formed I wait for any clue as to which way to go. Nothing.\n\n\"Which way \"sir\"\" asked the head of the group, there is a tone of anger or distrust in how he called me \"sir\".\n\n\"North west of course… and… kill him…\" I order calmly and softly.\n\nThe once great leader of the group starts to whimper and back up towards a ledge and stops. His attackers come in threes and once the three are wounded, exhausted or dead, another three take their place. After about 8 minutes he is dead and we leave.\n",
+		"0007": "## Chapter 6 Part 2: WTF ##\n\n**Eve P.O.V.**\n\n\"Ok, SHUT UP!\", I screamed, everyone falls silence. \"Now as you all know the annual 'Plug It In' Festival and Kate is missing...\"\n\nBaxx (with his neon green afro) runs in and starts to dance while singing, \"That's the way. Uh uh. I like it. Uh uh. I like it!\" Then he starts to float in midair and... (Sorry to cut you off but we are experiencing so technical/mental difficulties and are skipping ahead. *Please refer to a 2 by 4 for further information)\n\n**Humphrey P.O.V.**\n\n\"So Luna are you sure you want to go through with this?\" I ask.\n\nLuna in turn wanders around in a compete daze for a few minutes then all of a sudden starts acting super affectionate.\n\nThen she answers, \"Ya, how about we practice?\"\n\nI flinch and start to back away from her and in respondents she jumps on top of me\n"
+	},
+	"a-wolf-and-her-son": {
+		"id": "0004",
+		"name": "A Wolf And Her Son",
+		"undername": "a-wolf-and-her-son",
+		"date": "8/25/2016",
+		"data": "Holo continues to live on after Lawrence's death years ago. She then finds Harry an inch from death in the forest near her house, she takes him in as and raises him as one of her own.",
+		"0001": "## Chapter 1: Pain ##\n\nAuthor's Note:  First chapter of the Random Ideas mix mash. The main point of this is that I get random ideas for stories when reading and I decided that I would make tiny stories or one-shots out of them.\n\nThis one-shot is a Harry Potter and Spice and Wolf crossover, and sadly I don't own either of them.\n\n---\n\n### Pain.\nIt was all I felt as I laid on the forest floor. White hot pain. I messed up breakfast and Uncle decided to punish me by attacking me with a burning fire poker and his pelt, then threw me in the forest to die. The left side of my body has burn marks and my back is covered in welts. \n\nThe last thing before I blacked out from the pain I saw a beautiful women with brown hair and red eyes approach me with a sad but caring look on her face.\n\n---\n\n_Moments Before_\n\nI watch from tree line as the thing, that I think is a human, get a younger beaten child from the back of its car and lay it down in the clearing. \n\nAs it gets back in the car and drives away I wait to see what the little one does. As I sit and wait I noticed multiple marks on the little one, some what appeared to be burn marks on the left side of its face and multiple hand marks on the back of its arms and neck.\n\nI move to get a better view and realize that the little one was in pain.\n\n'Probably because of the older human,' I think, 'Why would someone do this to a child?'"
+	},
+	"chelsea-and-columbus": {
+		"id": "0005",
+		"name": "Chelsea and Columbus",
+		"undername": "chelsea-and-columbus",
+		"date": "8/25/2016",
+		"data": "A girl in Zombieland is out looking for a friend, or someone who will talk to her. A face that doesn't have blood on it even. But then, she finds Columbus. Story not mine its a friends on Deviantart named campbellsoup1549.",
+		"0001": "## Chapter 1 ##\n\nHi, I am Chelsea. From Chelsea, New York. (no that is not my real name. just my character from zland). I have long golden blond hair, and deep blue eyes. When the virus struck. It took everybody with it. I have been looking all over the country to find somebody without blood dripping down their face, and skin falling off every two seconds. I wish every night, that somebody. A special somebody will find me. I will cry sometimes. I will get angry, and kill things at times. It depends on how the thought makes me feel. Upset, that it is probable that nobody is out there, or angry that the zombies killed them all. I just... I don't know what to do.\n\nI pulled up to a gas station, and pulled out my handgun as I walked inside. I could really use a bag of sour cream and onion chips. I walked down the snack isle, and grabbed a few bags,\"Oo! Corn nuts!\" I said as I picked up the cool ranch bag. I grab a twinkie, before bolting out the door, and into my black Chevy truck. At the moment I was in Texarkana, but I saw nobody. Accept for a few zombies here and there, or a few bodies on the side of the road, half eaten,\"Quite the exotic road kill,\" I said to myself. I heard a suit case rolling not far behind me. I turned around, with my gun pointed. The rolling stopped, and I heard a shotgun pump. It didn't take long for me to notice what I was looking at. It was a boy. About 16 years old. He was bleeding a little on his lip, but not enough to be a zombie. Just a right cross or something. I gave him a thumbs up, to show I was human. He cautiously did the same, and I put my gun down. As the thumbs up, he cautiously did the same. This boy had short, curly dark hair, and dark brown eyes. He looked a little on the frightened, but lonely side.\n\n\"Do you have a car?\" I asked as I walked up to him.\n\n\"Umm... No.. I don't have a car,\" he replied.\n\n\"Do you need one?\"\n\n\"That would be nice.\"\n\n\"Then get in,\" the boy walked over the the truck, and got into the front seat.\n\n\"Chelsea. I'm Chelsea,\" I said.\n\n\"I-I'm Columbus,\" he stated. I nodded,\"Cool. I am guessing your headed to Columbus?\"\n\n\"Yeah. Where are you going?\"\n\n\"I was just looking for a friend, and I found you,\" Columbus smiled,\"I thought I was the only human left in Zombieland.\"\n\n\"You call it Zombieland too?\" he asked.\n\n\"Yeah. What else is there to call it? You can't have a country without people, and there are no people here.\"\n\n\"I saw the exact same thing.\"\n\nWe sat in silence for a while, and I started up the truck,\"I wil give you a ride to Columbus if you want, so your not in danger of zombies. Walking is very dangerous,\" I said.\n\n\"Yeah, I know. Tallahassee said that he would drive me to Texarkana, and that was it.\"\n\n\"There is another human?\"\n\n\"Yeah. If your anything like me, you would not enjoy his company. He is very hard to get along with, and he enjoys zombie killing, like it's a sport!\"\n\n\"Sounds like a jerk.\"\n\n\"You have no idea.\"\n\nI started to drive the car. It was night time, so it was hard to see all of his features. He seemed nice enough, and he was a lot like me,\"How did you get that cut on your lip?\" I asked.\n\n\"Tallahassee. I thought we were getting along well enough. I thought he could drive me a little farther. I guess not. He literally threw me out of his Cadillac. That's how I got it.\"\n\n\"Ouch! He really is a jerk, huh?\"\n\n\"Yeah. Well, if I see him dead, I wont care!\" he said with a smile. I smiled back,\"How old are you?\" he asked.\n\n\"14. What about you?\"\n\n\"I am 15.\"\n\n\"Cool.\"\n\n\"We are getting a little to comfortable around each other. We need to stop,\" I said. Columubus nodded,\"Right... You need to cut off all emotional ties, and care about your own survival.\"\n\n\"Yup,\" I replied. I continued driving. I wanted to get to know him more, but if I did, he could turn into a zombie, or get eaten by one, and I would be sad. Sadness is vulnerability. I know I said I wanted to meet a special guy, but I am not sure this is the one. He could be a friend, but nothing more. Maybe he could be something less. Could turn out to be an enemy. Some people play nice at first, then they go ballistic, and take all your guns, ammo, and car. All of your means of survival. I am just going to wait it out on this one.\n",
+		"0002": "## Chapter 2 ##\n\nI don't know if Columbus is the one. I am going to wait on it.\n\n\"Happy 4th of July,\" I said. It was dawn.\n\n\"Yeah. Too bad there is nobody to set off fireworks. Plus, that is a really bad idea, considering the zombies,\" Columbus replied.\n\n\"Sheesh, killjoy. I was just saying.\"\n\n\"I know. Sorry.\"\n\n\"It's okay. I am used to stuff like that. Dealt with it my entire life you know.\"\n\nColumbus tilted his head questioningly. I nodded, \"Yup. My family was awfully depressed. They didn't really care about holidays, or my peppy spirit at times.\"\n\n\"Oh, I didn't know. Sorry.\"\n\n\"Nah, its fine. Don't really care 'bout it.\"\n\nAs we drove, we saw another car going by. It was a yellow hummer, \"That's Tallahassee,\" Columbus said. I looked over. As he drove by, he had a gun pointed at us. I stopped the car, and so did he, \"Hello there Tallahassee. My friend Columbus here has told me so much about you,\" I said.\n\n\"And, you are you?\" he asked.\n\n\"Her name is Chelsea. From New York. She is driving me the rest of the way to Columbus,\" Columbus stated. Tallahassee nodded, \"Okay. Good luck petunia, LOOK OUT!\" he yelled. He lifted his gun, and fired at a zombie running at my open window. The bullet grazed the side of Columbus' shoulder before it hit the zombie. Columbus howled in pain, and gripped his shoulder, \"What did you do that for? You could have killed him!\" I yelled.\n\n\"It was either just hit on the shoulder, or eaten by a zombie! I just saved your God dang life!\"\n\n\"Well then, let's see how you like it! OH LOOK OUT!\" I said mocking him. I shot my handgun right past him, and it grazed his other shoulder, \"Deal with it,\" I said before driving away.\n\n\"I pulled the truck over as soon as he was out of sight, \"Are you okay? Let me see!\" I said. I moved his hand, and the wound was large. It was bleeding real badly, \"Okay. Keep that pressure on it, and I will get my first aid bandages!\"\n\nI climbed into the back seat, and pulled out my plastic kit. I opened the box, and pulled out the bandages. Columbus moved his hand so I could put it on. I put it around the wound tightly, \"You will be fine. We just need to keep moving, before the zombies smell the blood. Columbus slowly nodded. I was now very worried about him, \"You didn't have to shoot him. He meant no harm,\" he said.\n\n\"He didn't seem to care that he hurt you, so I don't care if I hurt him.\"\n\n\"I know, but... He could die now.\"\n\n\"I was going to go back after I got you fixed up to help him,\" I said turning the car around to go where I saw him last. The hummer hasn't moved since we last saw it. When I looked in the driver's seat, Tallahassee was leaning back, gripping his shoulder. I looked at him, and then looked at Columbus, \"Do I have to?\"\n\nColumbus shot me an annoyed look, \"Fine!\" I said. I pulled out my bandages, and got into his car. Tallahassee didn't look happy with me, and I didn't blame him. He pulled up his gun, and pointed it at me. I put my hands up, so he could see I was just holding bandages. I put the bandages on his shoulder, his gun against my head. Columbus watched, his shotgun in hand, in case Tallahassee decides to fire. When I was done, I put my arms up again, \"I am sorry, but if you hurt him again, it will be worse than this,\" I said getting out. Tallahassee shot me an angry look before driving away.\n\n\"Happy?\" I said when I got in. Columbus nodded, \"You said if you saw him dead, you wouldn't care.\"\n\n\"Well, I lied. He isn't that bad,\" he replied.\n\n\"Yeah sure. He shoots you, and you say he isn't that bad.\"\n\n\"Okay, when you put it like that!\" he said smiling. I laughed, \"Yeah, that's what I thought,\" I turned the truck around, and started driving. We drove in silence for a while. I looked over at Columbus, and noticed he was looking at me. I blushed, and looked back to the road. Columbus did the same. Columbus glanced back at me for a few seconds, and looked back out the window.\n"
+	},
+	"deaths-emissary": {
+		"id": "0006",
+		"name": "Deaths Emissary",
+		"undername": "deaths-emissary",
+		"date": "8/25/2016",
+		"data": "A loli cat and a fox scientist, what could go wrong?",
+		"0001": "## Chapter 1: Confession ##\n\nI don't know how to do this so I will just start by saying that I have problems... I feel I must confess to what I have done... my name is Carl Farsly and i live with my wife of two years in our quiet two bedroom house in Michigan. \n\nLast month I came home from work early to find a strange truck parked in front of my house. I didn't think much of it because the neighbors sometimes have guests over they don't have enough room in their driveway so often times the person would be parked out in front of our house. So I walk to the front door and put in my key and unlocked the door. The second I walk in I hear a man's voice coming from the bed room. \n\n'Maybe she left the TV on.', I thought to myself.\n\nSo i started to walk towards the bed room and hear \"Shit hide!\", then the sound of stomping around and a door slamming... I knew right then that it was not the TV. I don't know what came over me i just filled with so much rage thoughts came racing through my head. \n\n'How long has this been going on, how many guys has she taken into my bed, how could she betray me like that?'\n\nIn my rage I slammed through the bedroom door to see Jane sitting there like nothing had happened. I looked at her and then glanced at the closet door which was slightly opened. I reached over and grabbed the giant hand made glass paper weight she had gotten me for my birthday. And started walking towards the closet Jane's face loses all color as I swing the door open and see a stunned face just inches from mine. I smash the paper weight into the noes of the stranger making a loud sickening CRUNCH! As his noes shatters like a toothpick. He instantly drops to the floor covering his now bloody face. Jane screams and yells that she is going to call the cops on me. I couldn't let her do that I didn't want to go to prison for assault so i ran over to her and struck her in the side of the head with the weight. Her skull made a slight clunk sound as I knocked her down. She fell and busted her head on the night stand.\n\nI froze realizing what I had just done... I bent down and grabbed her wrist trying to find a pulse. I couldn't and she wasn't breathing... I glanced up and saw blood slowing flowing from her skull... I will never forget the feelings that washed over me it was not fear, dread or regret... I felt pleasure and excitement it was like nothing that I have ever felt, it made me feel alive and I loved it. I was standing over my wife's dead body and I felt great.\n\nThe moans of the man still in the closet brought me back to reality. I turned to look in the direction of the man he was now starting to get up. I dropped the weight. nearly missing Jane's head. I turned and walked over to this stranger and kicked him as hard as I could in his gut he made a loud grunting noise as all the air in his lungs escapes. Te drops back down to the floor an I quickly kick him in the side of his head knocking him unconscious.\n\nI wanted to feel that excitement again. No. I needed it. I grabbed him by the arm and dragged him across the floor towards the basement and stopped at the top of the stairs and kicked him down the stairs listening to every crack and crunch of his body as he rag dolled to the bottom of the stairs. I calmly walked down and dragged him to the support poll in the middle of the basement and grabbed the duck tape sitting on the shelve above the washer and taped his hands around the poll then just to be sure he wouldn't get away I warped the roll of tape around his body and the poll a dozen or so times and then I covered his mouth with one piece. \n\nI Stood there thinking what should i do to this shithead. Then I got the most exciting idea. I ran back up stairs glancing at Jane still where I left her as I passed my room. I went into the garage and grabbed all of my favorite tools and my small gas grill. I brought them all down stairs and laid them out neatly and lit my gas grill and set the tip of a Phillips head screwdriver in the flame letting it get red hot. I slapped the man a few times waking him up. I wanted him to be awake for this. \n\nHe looked at me with fear as I grabbed my power drill and put in a fresh new drill bit on it. He was frantically looking at me and the drill he started to squirm and I could hear his muffled screams as I sat on his leg to prevent him from moving to much. I took the tip of the drill bit and sat it on his knee. I turned it on and slowly started to press down the bit grabbed his skin and twisted it before ripping. Once through the skin the bit went down a little further spraying blood everywhere. His muffled screams grew louder and more frantic. I had reached his knee cap and started slowly drilling into it. I was having so much fun. I was enjoying the combination of muffled screams and drilling through bone... I had started to get board of the drill so I pulled it out of his knee and quickly grabbed the screwdriver from the grill and jabbed it into the fresh hole. \n\nThe blood boiled and his flesh burned as I stopped his bleeding. I turned to look him in the face and said \"The fun is just starting I don't want you to bleed out before I am done.\", his screams turned to tears as I got up to select a new tool.\n\nI looked over the all the tool and thought what one would be the most fun the exact o knife or the hammer. I decided to save the hammer for last and grabbed the exact o. I held it up to his terrified face and made my first cut from the top of his cheek to his chin only going deep enough to just graze the muscles underneath. Blood oozed out as I made my cut and his squirming caused it to be crooked. I slapped him his blood smearing across his face and my hand. \"Hold still or i will cut off your balls and feed them to you\", I said looking him straight in the eye, but he kept wiggling so I just went on with my work. I started cutting right next to where I had started before and took it down to his chin connecting to the previous cut more blood oozed out. He now had an oval on his face.\n\nI thought how hard would it be to rip someone's skin off so I took the knife and slid it in the cut and separated about an inch of his skin from the bloody muscle underneath I grabbed it with a pair of pliers and began to pull his skin stretched as I pulled. I had to pull kinda hard before iI heard the ripping of flesh. He wouldn't stop moving and he was kinda making it easier to tear off his skin. His blood was now poring from his face. Skin wasn't the only thing ripping as I pulled pieces of his muscle were sticking to his skin and coming off as well. I finally finished and dropped the piece of skin on the floor. He was bleeding badly and would die before I finished my game if I didn't do something quick. \n\nI knew the screwdriver wasn't big enough for this so I grabbed the small grill by the insulated handles and pressed the great of the grill on his face. It sounded like putting a cool steak on a hot frying pan. His bleeding stopped and i took the grill off. The great sticking and pulling as I pull it off his wound. I had missed a little bit and got his eye it was melted and oozing some kind of fluid. It looked like a sunny side up egg after you cut it with a fork... He must have passed put from the pain because he wasn't moving. I decided that I was going to keep him like that and keep going on with my work. So I grabbed my hammer and started smashing his foot making sure to snap and shatter every bone in it. \n\nI feelt even better than before, he wasn't moving and making it harder to work. But he was still making small groaning noises. I continued to smash his foot. It had broken open and was in an odd shape, like when you squeeze a ball of modeling clay in your hand and then you let it go that is what his foot looked like. I continued to pound his foot.\n\nAfter about 5 minutes you could no longer recognize it as a foot anymore. I was starting to lose interest and decided that i had had enough. I wanted to finish him. I sat the hammer down and grabbed my hatchet I slapped him a few dozen times and he woke up and looked at me not with fear like before but he looked at me like he had given up. That look pissed me off I ripped off the tape on his mouth and asked if he wanted to say anything. He just stared at me with his dull eyes and said nothing. \n\nI swung the hatchet at his head sinking it into his skull he made a strange inhuman noise and then he fell limp....... I don't know why but killing him was not as satisfying as when I killed Jane. Still satisfying but not as good.... I decided that i should go clean myself up... I turned off my grill and walked up the stairs. I went and took a quick shower. When i got out I was kinda tired so I walked to my room and laid down on the bed looking over the edge at Jane's body.\n\nI was about to fall asleep when I heard a knock on the door. I got up to go check who it was only to see two police officers standing at my door. I was not afraid I was actually vary calm.... Like i hadn't just killed two people..... I unlock the door and the officer standing to the left said \"Sir we got a noise compliant do you mind if we come in?\" I didn't care if they did I actually wanted them to come in the possibility of getting caught was extremely exciting. I invited them in and we stood no more than 8 feet from where Jane's body was, I had even left the bedroom door open. The officers asked me if I was alone I told them I was and that my wife had gone out to the store and would be back in am hour or so. They said that they had gotten a report about screams and banging coming from my house. I told him that I had the TV on and was watching a movie with the volume up. They talked to me for a few more minuets and then left. I was kinda disappointed that they did not find the bodies..... It has been three weeks since that happened and they are starting to smell. I go on with my daily life like nothing happened. I am still waiting for someone to notice they are gone.\n"
+	},
+	"no-longer-cold": {
+		"id": "0007",
+		"name": "No Longer Cold",
+		"undername": "no-longer-cold",
+		"date": "8/25/2016",
+		"data": "A yandere Taiga!?! OH GOD RUN!!",
+		"0001": ""
+	},
+	"the-end": {
+		"id": "0008",
+		"name": "The End",
+		"undername": "the-end",
+		"date": "8/25/2016",
+		"data": "A loli cat and a fox scientist, what could go wrong?",
+		"0001": "## Chapter 1: Love is Gone ##\n\nAt the end of the movie Humphrey does leave Jasper Park forever, but her brings Lilly with him... during Kate's and Garth's marriage... as Kate backs away just before numbing noses she says \"I... i cant\" after that said Garth tuned happy.\n\nThen Winston walks up \"why can't you marry Garth.\" said Winston asked Kate.\n\n\"Because... I... um... i fell in love with a... Omega\" said Kate,\n\nAs Lilly and Humphrey are getting on the train, Humphrey doesn't know it but Kate was talking about him..\n\nBack at the marriage Eve faints right next to Winston, and everyone is socked by it.\n\n\"I too am in love with a Omega\" Garth adds in.\n\nJust as a war was about to start Kate stopped it and asked..\n\n\"Do you know where Humphrey is\" Kate said to Winston.\n\n\"Why... So you can marry him?\" he said with a mad tone.\n\n...\n\n\"Also where is Lilly at?\" said Garth.\n\n\"Kate you go with Garth to go and find where Lilly is and on your way find Humphrey is.\" said Winston.\n\nBack on the train Lilly and Humphrey are about a half a hour in silence..\n\n\"Hey Humphrey?\" said Lilly.\n\n\"What?\" he said back.\n\n\"Where are we going?\" Lilly asked.\n\n\"Back to Saw Tooth\" Humphrey said.\n\n\"Is that the place where you and Kate were taken to?\" Lilly said.\n\n\"Yes... why?\" Humphrey asked\n\n\"Because Kate said it was beautiful there and after i herd that i always wanted to see it\" Lilly said.\n\n\"Oh.. i think it is time sleep because it is a long way from here \" Humphrey said as he saw it was getting dark out.\n\nChapter 2\n\nDream\n\n\"Where am i?\" Humphrey said in a black world.\n\nThen Kate shows up in the distance.\n\n\"Kate?\" Humphrey said \"Kate!\"\n\nHumphrey starts to run to her, but she slowly turned in to Lilly. Then stops and screams, he wakes up and looks over and saw Lilly sleeping.\n\nIt was just a dream he thought to himself.\n\n...\n\nKate and Garth got to the train tracks and then Garth smells Humphreys and Lilly's sent.\n\n\"Kate, they are this way\" Garth said.\n\n\"Let's go\" Kate said.\n\nAs they go down the land bridge Kate starts to cry.\n\n\"What is wrong Kate?\" Garth asked.\n\n\"This is the way Humphrey and i took to get back home\" Kate said crying.\n\n\"Don't worry we will find them\" Garth said\n\n\"Let's find a place to stay\"\n\n\"Ok\" Kate said still crying.\n\n...\n\nBack in Jasper, Winston is watching the moon as Eve walks up.\n\n\"They will find them.. i know they will\" Eve said.\n\n\"I know i just hope they come back alive\" Winston said.\n\n\"Let's go inside\" Eve said.\n\n\"Ok\" Winston said as he look at the moon one last time."
+	}
+}
+
+},{}]},{},[270]);

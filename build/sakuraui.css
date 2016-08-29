@@ -276,7 +276,7 @@ body {
   margin: 0;
 }
 .nav-top ul.nav-top-left {
-  width: 50%;
+  width: 100%;
 }
 .nav-top ul.nav-top-left li {
   height: 50px;
@@ -333,23 +333,6 @@ body {
 .nav-top ul.nav-top-left li:hover.title {
   color: #000000;
 }
-.nav-top ul.nav-top-right {
-  right: 0;
-  position: absolute;
-  top: 0;
-  width: 50%;
-}
-.nav-top ul.nav-top-right li {
-  float: right;
-  color: #7f8c8d;
-  line-height: 50px;
-  height: 50px;
-  transition: color 0.2s ease;
-}
-.nav-top ul.nav-top-right li:hover,
-.nav-top ul.nav-top-right li.active {
-  color: #000000;
-}
 .nav-bottom {
   border-bottom: 1px solid #bdc3c7;
   height: 39px;
@@ -398,6 +381,9 @@ body {
   color: #7f8c8d;
   padding: 5px;
   transition: background-color 0.5s ease, color 0.5s ease;
+}
+.sidebar ul li a {
+  text-decoration: none;
 }
 .sidebar ul li.active,
 .sidebar ul li:hover {

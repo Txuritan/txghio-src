@@ -32,8 +32,8 @@ module.exports = function (grunt) {
 		},
 		inline: {
 			options: {
-				cssmin: true,
-				uglify: true
+				cssmin: false,
+				uglify: false
 			},
 			build: {
 				src: 'build/index.html',

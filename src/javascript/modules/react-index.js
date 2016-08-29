@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
 
+import NavLink from './elements/navlink'
+
 export default React.createClass({
 	render() {
 		return (
@@ -15,10 +17,7 @@ export default React.createClass({
 									<div className="bar3"></div>
 								</div>
 							</li>
-							<li className="title"><a>SAKURA UI</a></li>
-						</ul>
-						<ul className="nav-top-right">
-							<li className="settings"><a>settings</a></li>
+							<li className="title"><a>Txuritan</a></li>
 						</ul>
 					</div>
 					<div className="nav-bottom">
@@ -31,7 +30,10 @@ export default React.createClass({
 				</nav>
 				<nav className="sidebar">
 					<ul>
-						<li>Home</li>
+						<NavLink to="/">Home</NavLink>
+						<NavLink to="/downloads/">Downlaods</NavLink>
+						<NavLink to="/posts/">Posts</NavLink>
+						<NavLink to="/stories/">Stories</NavLink>
 					</ul>
 				</nav>
 				<div className="content-wrapper">
