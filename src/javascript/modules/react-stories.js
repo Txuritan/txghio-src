@@ -23,8 +23,8 @@ export default React.createClass({
 				<table>
 					<thead>
 						<tr>
-							<th>Post Name</th>
-							<th>Post Date/Updated</th>
+							<th>Title</th>
+							<th>Description</th>
 						</tr>
 					</thead>
 					<tbody>

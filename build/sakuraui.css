@@ -86,7 +86,6 @@ figure {
   margin: 1em 40px;
 }
 hr {
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
 }
@@ -148,8 +147,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 input[type="search"] {
   -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
 input[type="search"]::-webkit-search-cancel-button,
@@ -308,14 +305,12 @@ body {
   transition: 0.5s ease;
 }
 .nav-top ul.nav-top-left li.menu .container.change .bar1 {
-  -webkit-transform: rotate(-45deg) translate(-5px, 5px);
   transform: rotate(-45deg) translate(-5px, 5px);
 }
 .nav-top ul.nav-top-left li.menu .container.change .bar2 {
   opacity: 0;
 }
 .nav-top ul.nav-top-left li.menu .container.change .bar3 {
-  -webkit-transform: rotate(45deg) translate(-5px, -5px);
   transform: rotate(45deg) translate(-5px, -5px);
 }
 .nav-top ul.nav-top-left li.menu .container:hover .bar1,
@@ -384,9 +379,40 @@ body {
 }
 .sidebar ul li a {
   text-decoration: none;
+  width: 220px;
+  display: block;
 }
 .sidebar ul li.active,
 .sidebar ul li:hover {
   background-color: #e6e6e6;
   color: #000000;
+}
+table {
+  border: 1px solid #bdc3c7;
+  border-collapse: collapse;
+  width: 100%;
+}
+table thead {
+  height: 50px;
+  border-bottom: 1px solid #bdc3c7;
+}
+table tbody tr {
+  transition: 0.2s ease;
+}
+table tbody tr:hover {
+  background-color: #bdc3c7;
+}
+table tbody tr:hover td {
+  color: #000000;
+}
+table tbody tr:hover td a {
+  color: #000000;
+}
+table tbody tr td {
+  color: #7f8c8d;
+  padding: 8px;
+}
+table tbody tr td a {
+  color: #7f8c8d;
+  text-decoration: none;
 }

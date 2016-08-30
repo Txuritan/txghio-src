@@ -31,7 +31,7 @@ export default React.createClass({
 				<nav className="sidebar">
 					<ul>
 						<NavLink to="/">Home</NavLink>
-						<NavLink to="/downloads/">Downlaods</NavLink>
+						<NavLink to="/downloads/">Downloads</NavLink>
 						<NavLink to="/posts/">Posts</NavLink>
 						<NavLink to="/stories/">Stories</NavLink>
 					</ul>

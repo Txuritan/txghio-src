@@ -40,3 +40,7 @@ jspm_packages
 
 
 dist/index.html
+build/fastclick.js
+build/index.html
+build/sakuraui.css
+build/sakuraui.js
