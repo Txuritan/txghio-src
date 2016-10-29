@@ -19,9 +19,9 @@ after_success: |
           cd dist
           git init
           git remote add origin git@github.com:Txuritan/txghio.git
-          git pull origin gh-pages .
+          git pull origin gh-pages
           git add --all
-          git -c user.name='travis' -c user.email='travis' commit -m "Travis CI: Build: $((TRAVIS_JOB_ID)) Time: `date`"
+          git -c user.name='travis' -c user.email='travis' commit -m "Travis CI: Build: $((TRAVIS_JOB_ID - 1)) Time: `date`"
           git push -q https://Txuritan:$GITHUB_API_KEY@github.com/Txuritan/txghio.git
           cd "$TRAVIS_BUILD_DIR"
      fi
